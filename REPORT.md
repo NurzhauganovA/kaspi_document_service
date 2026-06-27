@@ -82,9 +82,9 @@ docker compose exec api python scripts/produce_documents.py --count 100
 
 Типичный сценарий:
 
-1. `POST /api/v1/auth/login` — JSON `{"username","password"}`
-2. `POST /api/v1/documents/claim` — Bearer token
-3. `POST /api/v1/documents/{id}/decision` — `{"action": "accepted"}` или `"rejected"` + `rejection_reason`
+1. `POST /api/v1/auth/login` - JSON `{"username","password"}`
+2. `POST /api/v1/documents/claim` - Bearer token
+3. `POST /api/v1/documents/{id}/decision` - `{"action": "accepted"}` или `"rejected"` + `rejection_reason`
 4. Статистика (supervisor):  
    `GET /api/v1/documents/statistics?from_dt=2026-06-20&to_dt=2026-06-28`
 
@@ -101,7 +101,7 @@ E2E и integration - нужен PostgreSQL (`documents_test`).
 
 ## Нагрузочное тестирование
 
-Перед запуском: стек поднят, пользователи засеяны, в Kafka достаточно документов (для 100 операторов — `produce_documents --count 5000+`).
+Перед запуском: стек поднят, пользователи засеяны, в Kafka достаточно документов (для 100 операторов - `produce_documents --count 5000+`).
 
 ```bash
 ./scripts/run_load_test.sh docker
@@ -111,7 +111,7 @@ E2E и integration - нужен PostgreSQL (`documents_test`).
 С хоста: `pip install locust` → `./scripts/run_load_test.sh`
 
 Сценарии: 80% операторы (login → claim → decision), 20% супервайзеры (statistics + health).  
-404 на пустую очередь в Locust — успех, не ошибка сервиса.
+404 на пустую очередь в Locust - успех, не ошибка сервиса.
 
 ### Результаты (`load_test_report.html`)
 
@@ -126,7 +126,7 @@ E2E и integration - нужен PostgreSQL (`documents_test`).
 | 95%ile | 120 ms |
 | RPS | ~45–47 |
 
-Claim median **7 ms**, health **5 ms**, statistics **11 ms**. Login медленнее на старте (bcrypt, cold start). Одна ошибка claim — разовый сетевой сбой (`status 0`), не логика API.
+Claim median **7 ms**, health **5 ms**, statistics **11 ms**. Login медленнее на старте (bcrypt, cold start). Одна ошибка claim - разовый сетевой сбой (`status 0`), не логика API.
 
 ---
 

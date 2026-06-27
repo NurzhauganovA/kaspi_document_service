@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "kaspi-document-service"
+version = "1.0.0"
+description = "Document queue processing service with RBAC"
+authors = ["Anvarbek Nurzhauganov"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.138.1"
+uvicorn = {extras = ["standard"], version = "^0.49.0"}
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.51"}
+asyncpg = "^0.31.0"
+alembic = "^1.18.5"
+pydantic = {extras = ["email"], version = "^2.13.4"}
+pydantic-settings = "^2.14.2"
+aiokafka = "^0.14.0"
+bcrypt = "^5.0.0"
+python-jose = {extras = ["cryptography"], version = "^3.5.0"}
+python-multipart = "^0.0.32"
+redis = {extras = ["hiredis"], version = "^8.0.1"}
+prometheus-fastapi-instrumentator = "^8.0.2"
+structlog = "^26.1.0"
+orjson = "^3.11.9"
+httpx = "^0.28.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.1.1"
+pytest-asyncio = "^1.4.0"
+pytest-cov = "^7.1.0"
+locust = "^2.44.4"
+ruff = "^0.4.4"
+mypy = "^1.10.0"
+factory-boy = "^3.3.0"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "integration: tests requiring PostgreSQL",
+]
